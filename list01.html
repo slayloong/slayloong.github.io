@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>第一卷叶公好龙-叶公屠龙记</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", "STSong", serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f8f6f3;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4d0c8' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* 顶部导航 */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #c9a961 0%, #b8956a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f5f5f5;
+            letter-spacing: 2px;
+        }
+        
+        .nav-main {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-main a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-main a:hover {
+            background: rgba(201, 169, 97, 0.2);
+            color: #c9a961;
+        }
+        
+        .nav-main a.active {
+            background: rgba(201, 169, 97, 0.3);
+            color: #c9a961;
+        }
+        
+        /* Banner */
+        .banner {
+            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.9));
+            padding: 40px 20px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .banner h1 {
+            font-size: 32px;
+            margin-bottom: 10px;
+            letter-spacing: 4px;
+        }
+        
+        .banner .subtitle {
+            font-size: 16px;
+            color: #c9a961;
+        }
+        
+        /* 当前位置 */
+        .breadcrumb {
+            background: #fff;
+            border-bottom: 1px solid #e8e4dc;
+            padding: 12px 20px;
+        }
+        
+        .breadcrumb-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: #c9a961;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* 卷信息 */
+        .volume-info {
+            background: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e8e4dc;
+        }
+        
+        .volume-info h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .volume-info .meta {
+            color: #888;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+        
+        .volume-info .desc {
+            color: #555;
+            line-height: 1.8;
+        }
+        
+        /* 章节列表 */
+        .chapters-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e8e4dc;
+        }
+        
+        .chapters-section h3 {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #c9a961;
+            display: inline-block;
+        }
+        
+        .chapters-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 12px;
+        }
+        
+        .chapter-item {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f6f3;
+            border-radius: 6px;
+            border: 1px solid #e8e4dc;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: #333;
+        }
+        
+        .chapter-item:hover {
+            background: #fff;
+            border-color: #c9a961;
+            transform: translateX(5px);
+        }
+        
+        .chapter-item .num {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        
+        .chapter-item .title {
+            font-size: 15px;
+            color: #2c3e50;
+        }
+        
+        /* 分页导航 */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        
+        .pagination a {
+            padding: 10px 20px;
+            background: #2c3e50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .pagination a:hover {
+            background: #c9a961;
+        }
+        
+        .pagination a.disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        
+        /* 底部 */
+        .footer {
+            background: #2c3e50;
+            color: #aaa;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            color: #c9a961;
+        }
+        
+        .footer p {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-main {
+                justify-content: center;
+            }
+            
+            .nav-main a {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+            
+            .banner h1 {
+                font-size: 24px;
+            }
+            
+            .chapters-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">叶</div>
+                <div class="logo-text">叶公屠龙记</div>
+            </div>
+            <nav class="nav-main">
+                <a href="../index.html">首页</a>
+                <a href="list01.html" class="active">第一卷</a>
+                <a href="list02.html">第二卷</a>
+                <a href="list03.html">第三卷</a>
+                <a href="list04.html">第四卷</a>
+                <a href="list05.html">第五卷</a>
+                <a href="list06.html">第六卷</a>
+                <a href="list07.html">第七卷</a>
+                <a href="list08.html">第八卷</a>
+                <a href="list09.html">第九卷</a>
+                <a href="list10.html">第十卷</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Banner -->
+    <section class="banner">
+        <h1>第一卷 叶公好龙</h1>
+        <p class="subtitle">公元前41年—公元前23年 · 叶归秋0-18岁</p>
+    </section>
+    
+    <!-- 当前位置 -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-inner">
+            当前位置：<a href="../index.html">首页</a> &gt; 第一卷 叶公好龙
+        </div>
+    </div>
+    
+    <!-- 主内容 -->
+    <main class="main-content">
+        <!-- 卷信息 -->
+        <section class="volume-info">
+            <h2>卷一：叶公好龙</h2>
+            <div class="meta">时间跨度：公元前41年—公元前23年（叶归秋0-18岁）· 共20章</div>
+            <div class="desc">
+                <p>本卷核心任务：完成主角从"畏龙"到"慕龙"的心理蜕变，铺垫父亲之死带来的创伤，以及进入刘府后的重塑过程。</p>
+                <p>情绪曲线：压抑→悲愤→隐忍→迷茫→希望→成长→顿悟→圆满</p>
+            </div>
+        </section>
+        
+        <!-- 章节列表 -->
+        <section class="chapters-section">
+            <h3>章节目录</h3>
+            <div class="chapters-grid">
+                <a href="../page/page001.html" class="chapter-item">
+                    <span class="num">第1章</span>
+                    <span class="title">渭水寒夜</span>
+                </a>
+                <a href="../page/page002.html" class="chapter-item">
+                    <span class="num">第2章</span>
+                    <span class="title">匕首寒光</span>
+                </a>
+                <a href="../page/page003.html" class="chapter-item">
+                    <span class="num">第3章</span>
+                    <span class="title">无路可走</span>
+                </a>
+                <a href="../page/page004.html" class="chapter-item">
+                    <span class="num">第4章</span>
+                    <span class="title">长安如海</span>
+                </a>
+                <a href="../page/page005.html" class="chapter-item">
+                    <span class="num">第5章</span>
+                    <span class="title">扫地听经</span>
+                </a>
+                <a href="../page/page006.html" class="chapter-item">
+                    <span class="num">第6章</span>
+                    <span class="title">刘向择仆</span>
+                </a>
+                <a href="../page/page007.html" class="chapter-item">
+                    <span class="num">第7章</span>
+                    <span class="title">同窗异梦</span>
+                </a>
+                <a href="../page/page008.html" class="chapter-item">
+                    <span class="num">第8章</span>
+                    <span class="title">乡邻探访</span>
+                </a>
+                <a href="../page/page009.html" class="chapter-item">
+                    <span class="num">第9章</span>
+                    <span class="title">初识王莽</span>
+                </a>
+                <a href="../page/page010.html" class="chapter-item">
+                    <span class="num">第10章</span>
+                    <span class="title">家国之辩</span>
+                </a>
+                <a href="../page/page011.html" class="chapter-item">
+                    <span class="num">第11章</span>
+                    <span class="title">叶公寓言</span>
+                </a>
+                <a href="../page/page012.html" class="chapter-item">
+                    <span class="num">第12章</span>
+                    <span class="title">太后之怒</span>
+                </a>
+                <a href="../page/page013.html" class="chapter-item">
+                    <span class="num">第13章</span>
+                    <span class="title">危局思变</span>
+                </a>
+                <a href="../page/page014.html" class="chapter-item">
+                    <span class="num">第14章</span>
+                    <span class="title">好龙辩初稿</span>
+                </a>
+                <a href="../page/page015.html" class="chapter-item">
+                    <span class="num">第15章</span>
+                    <span class="title">献文惊府</span>
+                </a>
+                <a href="../page/page016.html" class="chapter-item">
+                    <span class="num">第16章</span>
+                    <span class="title">太后转意</span>
+                </a>
+                <a href="../page/page017.html" class="chapter-item">
+                    <span class="num">第17章</span>
+                    <span class="title">刘向收徒</span>
+                </a>
+                <a href="../page/page018.html" class="chapter-item">
+                    <span class="num">第18章</span>
+                    <span class="title">刘芷初见</span>
+                </a>
+                <a href="../page/page019.html" class="chapter-item">
+                    <span class="num">第19章</span>
+                    <span class="title">诗会扬名</span>
+                </a>
+                <a href="../page/page020.html" class="chapter-item">
+                    <span class="num">第20章</span>
+                    <span class="title">红叶为媒</span>
+                </a>
+            </div>
+        </section>
+        
+        <!-- 分页导航 -->
+        <div class="pagination">
+            <a href="../index.html" class="prev">返回首页</a>
+            <a href="list02.html" class="next">下一卷：叶公识龙 &rarr;</a>
+        </div>
+    </main>
+    
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="../index.html">首页</a>
+                <a href="list01.html">第一卷</a>
+                <a href="list05.html">第五卷</a>
+                <a href="list10.html">第十卷</a>
+            </div>
+            <p>本站所有内容仅供学习交流使用，版权归原作者及出版方所有。</p>
+            <p>Copyright &copy; 2024 叶公屠龙记. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

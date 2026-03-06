@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>叶公屠龙记 - 长篇历史架空小说</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", "STSong", serif;
+            line-height: 1.8;
+            color: #333;
+            background-color: #f8f6f3;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23d4d0c8' fill-opacity='0.2'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        
+        /* 顶部导航 */
+        .header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-top {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #c9a961 0%, #b8956a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            color: #fff;
+            box-shadow: 0 2px 8px rgba(201, 169, 97, 0.3);
+        }
+        
+        .logo-text {
+            font-size: 26px;
+            font-weight: 700;
+            color: #f5f5f5;
+            letter-spacing: 2px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+        }
+        
+        .nav-main {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .nav-main a {
+            color: #e0e0e0;
+            text-decoration: none;
+            padding: 8px 14px;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            white-space: nowrap;
+        }
+        
+        .nav-main a:hover {
+            background: rgba(201, 169, 97, 0.2);
+            color: #c9a961;
+        }
+        
+        .nav-main a.active {
+            background: rgba(201, 169, 97, 0.3);
+            color: #c9a961;
+        }
+        
+        /* Banner */
+        .banner {
+            background: linear-gradient(rgba(44, 62, 80, 0.85), rgba(44, 62, 80, 0.9)), 
+                        url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23c9a961' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+            padding: 60px 20px;
+            text-align: center;
+            color: #fff;
+        }
+        
+        .banner h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            letter-spacing: 8px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .banner .subtitle {
+            font-size: 18px;
+            color: #c9a961;
+            letter-spacing: 3px;
+        }
+        
+        /* 当前位置 */
+        .breadcrumb {
+            background: #fff;
+            border-bottom: 1px solid #e8e4dc;
+            padding: 12px 20px;
+        }
+        
+        .breadcrumb-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .breadcrumb a {
+            color: #2c3e50;
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: #c9a961;
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        
+        /* 小说介绍 */
+        .intro-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e8e4dc;
+        }
+        
+        .intro-section h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #c9a961;
+            display: inline-block;
+        }
+        
+        .intro-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .book-cover {
+            text-align: center;
+        }
+        
+        .cover-placeholder {
+            width: 100%;
+            max-width: 280px;
+            aspect-ratio: 2/3;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cover-placeholder::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(201, 169, 97, 0.1) 0%, transparent 60%);
+        }
+        
+        .cover-placeholder .title {
+            font-size: 32px;
+            color: #c9a961;
+            letter-spacing: 6px;
+            z-index: 1;
+        }
+        
+        .cover-placeholder .author {
+            font-size: 14px;
+            color: #999;
+            margin-top: 15px;
+            z-index: 1;
+        }
+        
+        .book-meta {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+            font-size: 14px;
+        }
+        
+        .meta-item {
+            background: #f8f6f3;
+            padding: 10px 15px;
+            border-radius: 4px;
+        }
+        
+        .meta-item .label {
+            color: #888;
+        }
+        
+        .meta-item .value {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        
+        .intro-text {
+            color: #555;
+            line-height: 2;
+        }
+        
+        .intro-text p {
+            margin-bottom: 15px;
+            text-indent: 2em;
+        }
+        
+        /* 卷目录 */
+        .volumes-section {
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border: 1px solid #e8e4dc;
+        }
+        
+        .volumes-section h2 {
+            font-size: 24px;
+            color: #2c3e50;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #c9a961;
+            display: inline-block;
+        }
+        
+        .volumes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .volume-card {
+            background: #f8f6f3;
+            border-radius: 8px;
+            padding: 25px;
+            border: 1px solid #e8e4dc;
+            transition: all 0.3s ease;
+        }
+        
+        .volume-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            border-color: #c9a961;
+        }
+        
+        .volume-card .vol-num {
+            font-size: 14px;
+            color: #c9a961;
+            margin-bottom: 8px;
+        }
+        
+        .volume-card .vol-title {
+            font-size: 20px;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .volume-card .vol-chapters {
+            font-size: 13px;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        
+        .volume-card .vol-desc {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .volume-card .read-btn {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #2c3e50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+        
+        .volume-card .read-btn:hover {
+            background: #c9a961;
+        }
+        
+        /* 底部 */
+        .footer {
+            background: #2c3e50;
+            color: #aaa;
+            padding: 40px 20px;
+            text-align: center;
+            margin-top: 60px;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .footer-links {
+            margin-bottom: 20px;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 14px;
+        }
+        
+        .footer-links a:hover {
+            color: #c9a961;
+        }
+        
+        .footer p {
+            font-size: 13px;
+            line-height: 1.8;
+        }
+        
+        /* 响应式 */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .nav-main {
+                justify-content: center;
+            }
+            
+            .nav-main a {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+            
+            .banner h1 {
+                font-size: 28px;
+                letter-spacing: 4px;
+            }
+            
+            .intro-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .volumes-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 顶部导航 -->
+    <header class="header">
+        <div class="header-top">
+            <div class="logo">
+                <div class="logo-icon">叶</div>
+                <div class="logo-text">叶公屠龙记</div>
+            </div>
+            <nav class="nav-main">
+                <a href="index.html" class="active">首页</a>
+                <a href="list/list01.html">第一卷</a>
+                <a href="list/list02.html">第二卷</a>
+                <a href="list/list03.html">第三卷</a>
+                <a href="list/list04.html">第四卷</a>
+                <a href="list/list05.html">第五卷</a>
+                <a href="list/list06.html">第六卷</a>
+                <a href="list/list07.html">第七卷</a>
+                <a href="list/list08.html">第八卷</a>
+                <a href="list/list09.html">第九卷</a>
+                <a href="list/list10.html">第十卷</a>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- Banner -->
+    <section class="banner">
+        <h1>叶公屠龙记</h1>
+        <p class="subtitle">长篇历史架空小说 · 从皇权专制到民主自治</p>
+    </section>
+    
+    <!-- 当前位置 -->
+    <div class="breadcrumb">
+        <div class="breadcrumb-inner">
+            当前位置：<a href="index.html">首页</a>
+        </div>
+    </div>
+    
+    <!-- 主内容 -->
+    <main class="main-content">
+        <!-- 小说介绍 -->
+        <section class="intro-section">
+            <h2>作品简介</h2>
+            <div class="intro-content">
+                <div class="book-cover">
+                    <div class="cover-placeholder">
+                        <div class="title">叶公屠龙记</div>
+                        <div class="author">长篇历史架空小说</div>
+                    </div>
+                    <div class="book-meta">
+                        <div class="meta-item">
+                            <span class="label">总字数：</span>
+                            <span class="value">约95万字</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">总章数：</span>
+                            <span class="value">200章</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">卷数：</span>
+                            <span class="value">10卷</span>
+                        </div>
+                        <div class="meta-item">
+                            <span class="label">时间跨度：</span>
+                            <span class="value">公元前41年—公元35年</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="intro-text">
+                    <p>《叶公屠龙记》是一部宏大的历史架空小说，讲述了主人公叶归秋从"畏龙"到"慕龙"、从"助龙"到"疑龙"、最终"屠龙""去龙"的传奇一生。</p>
+                    <p>故事始于西汉末年，叶归秋的父亲被龙船小吏殴打致死，少年叶归秋立下复仇之志。他进入刘府读书，结识王莽，步入官场，辅佐王莽建立新朝，却在权力的漩涡中逐渐迷失。当他亲手毒杀汉平帝、助王莽称帝后，内心的良知开始觉醒。</p>
+                    <p>最终，叶归秋离开长安，远赴珠崖（今海南岛），在那里建立了一个没有皇帝的"无龙世界"——通过民主选举产生总统，百姓自己管理自己。公元25年正月初一，叶归秋就任珠崖首任总统，宣告"龙"的终结。</p>
+                    <p>小说通过叶归秋的一生，展现了从皇权专制到民主自治的艰难转型，探讨了权力的本质、人性的复杂，以及"无我"境界的终极追求。</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- 卷目录 -->
+        <section class="volumes-section">
+            <h2>全书目录</h2>
+            <div class="volumes-grid">
+                <div class="volume-card">
+                    <div class="vol-num">卷一</div>
+                    <div class="vol-title">叶公好龙</div>
+                    <div class="vol-chapters">第1-20章 · 公元前41年—前23年</div>
+                    <div class="vol-desc">从畏龙到慕龙的心理蜕变。父亲之死、刘府读书、初识王莽、撰写《好龙辩》、与刘昭宁成婚。</div>
+                    <a href="list/list01.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷二</div>
+                    <div class="vol-title">叶公识龙</div>
+                    <div class="vol-chapters">第21-40章 · 公元前23年—前20年</div>
+                    <div class="vol-desc">入职廷尉府，识破官场潜规则。结识赵宣、陈汤，见证王莽入仕，扳倒淳于长。</div>
+                    <a href="list/list02.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷三</div>
+                    <div class="vol-title">叶公诛龙</div>
+                    <div class="vol-chapters">第41-60章 · 公元前20年—公元5年</div>
+                    <div class="vol-desc">助王莽夺权，毒杀汉平帝，以身入魔。王莽杀子求名、复出称帝，叶归秋内心裂痕初现。</div>
+                    <a href="list/list03.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷四</div>
+                    <div class="vol-title">叶公易龙</div>
+                    <div class="vol-chapters">第61-80章 · 公元5年—9年</div>
+                    <div class="vol-desc">王莽称帝，改制实验。王田令、私属令、五均六筦、货币改革，理想与现实的激烈碰撞。</div>
+                    <a href="list/list04.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷五</div>
+                    <div class="vol-title">叶公助龙</div>
+                    <div class="vol-chapters">第81-100章 · 公元9年—14年</div>
+                    <div class="vol-desc">全力辅佐王莽推行新政，但乱象愈演愈烈。黄河决口、赤眉绿林兴起，叶归秋微服私访，目睹民间疾苦。</div>
+                    <a href="list/list05.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷六</div>
+                    <div class="vol-title">叶公疑龙</div>
+                    <div class="vol-chapters">第101-120章 · 公元14年—17年</div>
+                    <div class="vol-desc">信仰崩塌，苦谏不纳。王莽沉迷威斗、哭天求神，叶归秋彻底失望，主动请求外放珠崖。</div>
+                    <a href="list/list06.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷七</div>
+                    <div class="vol-title">叶公去龙</div>
+                    <div class="vol-chapters">第121-140章 · 公元17年—23年</div>
+                    <div class="vol-desc">珠崖六年，民主实验。建立议事会、发展经济、黎汉融合，与大陆的混乱形成鲜明对比。</div>
+                    <a href="list/list07.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷八</div>
+                    <div class="vol-title">叶公屠龙</div>
+                    <div class="vol-chapters">第141-160章 · 公元23年—25年</div>
+                    <div class="vol-desc">王莽被杀，体制终结。珠崖选举总统，公元25年正月初一，叶归秋发表"屠龙演说"，宣告无龙世界诞生。</div>
+                    <a href="list/list08.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷九</div>
+                    <div class="vol-title">无龙世界</div>
+                    <div class="vol-chapters">第161-180章 · 公元25年—29年</div>
+                    <div class="vol-desc">民主社会运行，与东汉对比。叶安若当选第二任总统，叶绍北渡大陆传播民主思想。</div>
+                    <a href="list/list09.html" class="read-btn">阅读本卷</a>
+                </div>
+                <div class="volume-card">
+                    <div class="vol-num">卷十</div>
+                    <div class="vol-title">叶落归秋</div>
+                    <div class="vol-chapters">第181-200章 · 公元29年—35年</div>
+                    <div class="vol-desc">功成身退，回归故里。叶归秋卸任总统，回到高陵县，在果实累累的秋天安然离世，实现"无我"境界。</div>
+                    <a href="list/list10.html" class="read-btn">阅读本卷</a>
+                </div>
+            </div>
+        </section>
+    </main>
+    
+    <!-- 底部 -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">首页</a>
+                <a href="list/list01.html">第一卷</a>
+                <a href="list/list05.html">第五卷</a>
+                <a href="list/list10.html">第十卷</a>
+            </div>
+            <p>本站所有内容仅供学习交流使用，版权归原作者及出版方所有。</p>
+            <p>Copyright &copy; 2024 叶公屠龙记. All Rights Reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
